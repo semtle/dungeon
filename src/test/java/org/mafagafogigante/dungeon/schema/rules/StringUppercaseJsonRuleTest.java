@@ -41,4 +41,5 @@ public class StringUppercaseJsonRuleTest {
     Assert.assertEquals(TypeOfJsonValidationResult.ELEMENT_NOT_IN_UPPERCASE,
         validationResult.getTypeOfJsonValidationResult());
   }
+
 }

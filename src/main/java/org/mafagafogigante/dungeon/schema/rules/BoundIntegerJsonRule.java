@@ -25,4 +25,5 @@ public final class BoundIntegerJsonRule implements JsonRule {
       return new JsonValidationResult(Integer.toString(intValue), TypeOfJsonValidationResult.ELEMENT_NOT_IN_BOUND);
     }
   }
+
 }

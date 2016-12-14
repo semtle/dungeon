@@ -17,4 +17,5 @@ public class JsonValidationResult {
   public TypeOfJsonValidationResult getTypeOfJsonValidationResult() {
     return typeOfJsonValidationResult;
   }
+
 }

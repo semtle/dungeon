@@ -62,4 +62,5 @@ public class AchievementsJsonResourceTest {
     return getClass() + " found error in resource file. Value [" + jsonValidationResult.getElementValue() +
         "] failed with next validation result type [" + jsonValidationResult.getTypeOfJsonValidationResult() + "]";
   }
+
 }

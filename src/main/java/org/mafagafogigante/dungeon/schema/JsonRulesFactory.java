@@ -33,4 +33,5 @@ public final class JsonRulesFactory {
   public List<JsonRulePair> getJsonRulePairs() {
     return jsonRulePairs;
   }
+
 }

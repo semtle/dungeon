@@ -13,7 +13,7 @@ public final class JsonElementSearchUtil {
   }
 
   /**
-   * Searches json values by attribute name in recursion.
+   * Searches JSON values by attribute name in recursion.
    */
   public static List<JsonValue> searchJsonValueByAttributeName(JsonObject jsonObject, String elementNameForSearch) {
     List<JsonValue> resultJsonValues = new ArrayList<>();
@@ -38,4 +38,5 @@ public final class JsonElementSearchUtil {
     }
     return accumulationJsonValueList;
   }
+
 }

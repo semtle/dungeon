@@ -17,4 +17,5 @@ public class JsonRulePair {
   public JsonRule getJsonRule() {
     return jsonRule;
   }
+
 }

@@ -17,18 +17,21 @@ public final class JsonObjectValidator {
   }
 
   /**
-   * Applies json rule pairs to json object and returns validation result list.
+   * Applies JSON rule pairs to json object and returns validation result list.
    */
   public List<JsonValidationResult> applyTo(JsonObject sourceJsonObject) {
     final List<JsonRulePair> jsonRulePairs = jsonRulesFactory.getJsonRulePairs();
     List<JsonValidationResult> jsonValidationResults = new ArrayList<>();
     for (JsonRulePair jsonRulePair : jsonRulePairs) {
+      final String targetElementName = jsonRulePair.getTargetElementName();
       List<JsonValue> sourceJsonObjectValues =
-          JsonElementSearchUtil.searchJsonValueByAttributeName(sourceJsonObject, jsonRulePair.getTargetElementName());
+          JsonElementSearchUtil.searchJsonValueByAttributeName(sourceJsonObject, targetElementName);
       for (JsonValue sourceJsonValue : sourceJsonObjectValues) {
-        jsonValidationResults.add(jsonRulePair.getJsonRule().validate(sourceJsonValue));
+        JsonValidationResult jsonValidationResult = jsonRulePair.getJsonRule().validate(sourceJsonValue);
+        jsonValidationResults.add(jsonValidationResult);
       }
     }
     return jsonValidationResults;
   }
+
 }

@@ -51,4 +51,5 @@ public class BoundIntegerJsonRuleTest {
     JsonValidationResult validationResult = boundIntegerJsonRule.validate(Json.value(validationValue));
     Assert.assertEquals(TypeOfJsonValidationResult.VALID, validationResult.getTypeOfJsonValidationResult());
   }
+
 }

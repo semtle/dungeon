@@ -23,4 +23,5 @@ public final class StringUppercaseJsonRule implements JsonRule {
   private boolean isAllCharsInUppercase(String value) {
     return value.equals(value.toUpperCase(Locale.ENGLISH));
   }
+
 }

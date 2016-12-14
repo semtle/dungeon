@@ -19,7 +19,7 @@ public class JsonElementSearchUtilTest {
   private JsonObject parentJsonObject;
 
   /**
-   * Initialize test json object.
+   * Initialize test JSON object.
    */
   @Before
   public void setUp() {
@@ -71,4 +71,5 @@ public class JsonElementSearchUtilTest {
     }
     return emptyJsonObject;
   }
+
 }
