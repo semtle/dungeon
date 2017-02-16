@@ -17,13 +17,14 @@ import java.io.Serializable;
 public class Date implements Comparable<Date>, Serializable {
 
   private static final long serialVersionUID = Version.MAJOR;
+
   /**
    * The time, in milliseconds.
    */
   private long time; // Supports 1067519911 full years.
 
-  private Date(long millis) {
-    time = millis;
+  private Date(long milliseconds) {
+    time = milliseconds;
   }
 
   /**
@@ -135,7 +136,7 @@ public class Date implements Comparable<Date>, Serializable {
    * @return a new Date object
    * @throws IllegalArgumentException if amount is not positive or if unit is null
    */
-  public Date plus(int amount, DungeonTimeUnit unit) {
+  public Date plus(long amount, DungeonTimeUnit unit) {
     if (amount <= 0) {
       throw new IllegalArgumentException("Amount must be positive");
     } else if (unit == null) {
@@ -153,7 +154,7 @@ public class Date implements Comparable<Date>, Serializable {
    * @return a new Date object
    * @throws IllegalArgumentException if amount is not positive or if unit is null
    */
-  public Date minus(int amount, DungeonTimeUnit unit) {
+  public Date minus(long amount, DungeonTimeUnit unit) {
     if (amount <= 0) {
       throw new IllegalArgumentException("Amount must be positive");
     } else if (unit == null) {
