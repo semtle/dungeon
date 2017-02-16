@@ -1,18 +1,19 @@
 package org.mafagafogigante.dungeon.io;
 
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-import org.junit.Test;
+import static org.mafagafogigante.dungeon.io.JsonSearchUtil.convertJsonValuesToDungeonIds;
+import static org.mafagafogigante.dungeon.io.JsonSearchUtil.searchJsonValuesByPath;
+
 import org.mafagafogigante.dungeon.game.Id;
 import org.mafagafogigante.dungeon.schema.JsonRule;
 import org.mafagafogigante.dungeon.schema.rules.JsonRuleFactory;
 
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import static org.mafagafogigante.dungeon.io.JsonSearchUtil.convertJsonValuesToDungeonIds;
-import static org.mafagafogigante.dungeon.io.JsonSearchUtil.searchJsonValuesByPath;
 
 public class LocationsJsonFileTest {
 

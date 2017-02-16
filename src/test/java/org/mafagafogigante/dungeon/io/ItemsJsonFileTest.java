@@ -32,6 +32,7 @@ public class ItemsJsonFileTest {
   private static final String LUMINOSITY_FIELD = "luminosity";
   private static final String DRINKABLE_DOSES_FIELD = "drinkableDoses";
   private static final String DRINKABLE_HEALING_FIELD = "drinkableHealing";
+  private static final String DRINKABLE_EFFECTS_FIELD = "drinkableEffects";
   private static final String DECOMPOSITION_PERIOD_FIELD = "decompositionPeriod";
   private static final String INTEGRITY_DECREMENT_ON_HIT_FIELD = "integrityDecrementOnHit";
   private static final String INTEGRITY_DECREMENT_ON_EAT_FIELD = "integrityDecrementOnEat";
@@ -55,12 +56,12 @@ public class ItemsJsonFileTest {
 
   private JsonRule getItemRuleObject(JsonRule integrityRuleObject, JsonRule nameRuleObject) {
     Map<String, JsonRule> itemRules = new HashMap<>();
-    final JsonRule idRule = JsonRuleFactory.makeIdRule();
-    final JsonRule stringRule = JsonRuleFactory.makeStringRule();
-    final JsonRule percentRule = JsonRuleFactory.makePercentRule();
-    final JsonRule integerRule = JsonRuleFactory.makeIntegerRule();
-    final JsonRule optionalIntegerRule = JsonRuleFactory.makeOptionalRule(integerRule);
-    itemRules.put(ID_FIELD, JsonRuleFactory.makeIdRule());
+    JsonRule idRule = JsonRuleFactory.makeIdRule();
+    JsonRule stringRule = JsonRuleFactory.makeStringRule();
+    JsonRule percentRule = JsonRuleFactory.makePercentRule();
+    JsonRule integerRule = JsonRuleFactory.makeIntegerRule();
+    JsonRule optionalIntegerRule = JsonRuleFactory.makeOptionalRule(integerRule);
+    itemRules.put(ID_FIELD, idRule);
     itemRules.put(TYPE_FIELD, stringRule);
     itemRules.put(NAME_FIELD, nameRuleObject);
     itemRules.put(TAGS_FIELD, JsonRuleFactory.makeVariableArrayRule(stringRule));
@@ -77,6 +78,8 @@ public class ItemsJsonFileTest {
     itemRules.put(INTEGRITY_DECREMENT_ON_EAT_FIELD, optionalIntegerRule);
     itemRules.put(DRINKABLE_DOSES_FIELD, optionalIntegerRule);
     itemRules.put(DRINKABLE_HEALING_FIELD, optionalIntegerRule);
+    JsonRule arrayOfAnything = JsonRuleFactory.makeVariableArrayRule(JsonRuleFactory.makeEmptyRule());
+    itemRules.put(DRINKABLE_EFFECTS_FIELD, JsonRuleFactory.makeOptionalRule(arrayOfAnything));
     itemRules.put(INTEGRITY_DECREMENT_PER_DOSE_FIELD, optionalIntegerRule);
     itemRules.put(TEXT_FIELD, JsonRuleFactory.makeOptionalRule(stringRule));
     itemRules.put(SPELL_FIELD, JsonRuleFactory.makeOptionalRule(idRule));
