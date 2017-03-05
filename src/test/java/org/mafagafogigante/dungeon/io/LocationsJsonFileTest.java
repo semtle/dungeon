@@ -1,19 +1,18 @@
 package org.mafagafogigante.dungeon.io;
 
-import static org.mafagafogigante.dungeon.io.JsonSearchUtil.convertJsonValuesToDungeonIds;
-import static org.mafagafogigante.dungeon.io.JsonSearchUtil.searchJsonValuesByPath;
-
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
+import org.junit.Test;
 import org.mafagafogigante.dungeon.game.Id;
 import org.mafagafogigante.dungeon.schema.JsonRule;
 import org.mafagafogigante.dungeon.schema.rules.JsonRuleFactory;
 
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import static org.mafagafogigante.dungeon.io.JsonSearchUtil.convertJsonValuesToDungeonIds;
+import static org.mafagafogigante.dungeon.io.JsonSearchUtil.searchJsonValuesByPath;
 
 public class LocationsJsonFileTest {
 
@@ -21,6 +20,7 @@ public class LocationsJsonFileTest {
   private static final String TYPE_FIELD = "type";
   private static final String NAME_FIELD = "name";
   private static final String INFO_FIELD = "info";
+  private static final String TAGS_FIELD = "tags";
   private static final String COLOR_FIELD = "color";
   private static final String ITEMS_FIELD = "items";
   private static final String DELAY_FIELD = "delay";
@@ -51,16 +51,16 @@ public class LocationsJsonFileTest {
 
   @Test
   public void testIsFileHasValidStructure() {
-    final JsonRule itemsRule = getItemsRule();
-    final JsonRule populationRule = getPopulationRule();
-    final JsonRule spawnersRule = getSpawnersRule(populationRule);
-    final JsonRule blockedEntrancesRule = getBlockedEntrancesRule();
-    final JsonRule colorRule = getColorRuleGroup();
-    final JsonRule nameRule = getNameRule();
+    JsonRule itemsRule = getItemsRule();
+    JsonRule populationRule = getPopulationRule();
+    JsonRule spawnersRule = getSpawnersRule(populationRule);
+    JsonRule blockedEntrancesRule = getBlockedEntrancesRule();
+    JsonRule colorRule = getColorRuleGroup();
+    JsonRule nameRule = getNameRule();
     Map<String, JsonRule> locationsRules = new HashMap<>();
-    final JsonRule idRule = JsonRuleFactory.makeIdRule();
-    final JsonRule blobBoundRule = JsonRuleFactory.makeBoundIntegerRule(BLOB_SIZE_MIN, BLOB_SIZE_MAX);
-    final JsonRule lightBoundRule = JsonRuleFactory.makeBoundDoubleRule(PERMITTIVITY_MIN, PERMITTIVITY_MAX);
+    JsonRule idRule = JsonRuleFactory.makeIdRule();
+    JsonRule blobBoundRule = JsonRuleFactory.makeBoundIntegerRule(BLOB_SIZE_MIN, BLOB_SIZE_MAX);
+    JsonRule lightBoundRule = JsonRuleFactory.makeBoundDoubleRule(PERMITTIVITY_MIN, PERMITTIVITY_MAX);
     locationsRules.put(ID_FIELD, idRule);
     locationsRules.put(TYPE_FIELD, idRule);
     locationsRules.put(NAME_FIELD, nameRule);
@@ -71,11 +71,14 @@ public class LocationsJsonFileTest {
     locationsRules.put(LIGHT_PERMITTIVITY_FIELD, lightBoundRule);
     locationsRules.put(BLOCKED_ENTRANCES_FIELD, blockedEntrancesRule);
     locationsRules.put(SPAWNERS_FIELD, spawnersRule);
+    JsonRule idArrayRule = JsonRuleFactory.makeVariableArrayRule(JsonRuleFactory.makeIdRule());
+    JsonRule tagsRule = JsonRuleFactory.makeOptionalRule(idArrayRule);
+    locationsRules.put(TAGS_FIELD, tagsRule);
     locationsRules.put(ITEMS_FIELD, itemsRule);
-    final JsonRule locationRule = JsonRuleFactory.makeObjectRule(locationsRules);
-    final JsonRule locationsFileJsonRule = getLocationsFileRule(locationRule);
-    JsonObject locationsFileJsonObject =
-        JsonObjectFactory.makeJsonObject(JsonFileName.LOCATIONS.getStringRepresentation());
+    JsonRule locationRule = JsonRuleFactory.makeObjectRule(locationsRules);
+    JsonRule locationsFileJsonRule = getLocationsFileRule(locationRule);
+    String fileNameString = JsonFileName.LOCATIONS.getStringRepresentation();
+    JsonObject locationsFileJsonObject = JsonObjectFactory.makeJsonObject(fileNameString);
     locationsFileJsonRule.validate(locationsFileJsonObject);
   }
 
