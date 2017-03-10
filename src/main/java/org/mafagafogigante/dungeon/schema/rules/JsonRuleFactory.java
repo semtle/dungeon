@@ -85,4 +85,8 @@ public final class JsonRuleFactory {
     return new SpecificIdJsonRule(ids);
   }
 
+  public static <T extends Enum<T>> JsonRule makeEnumJsonRule(Class<T> enumClass) {
+    return new EnumJsonRule<>(enumClass);
+  }
+
 }

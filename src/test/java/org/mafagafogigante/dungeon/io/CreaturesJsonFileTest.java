@@ -3,6 +3,8 @@ package org.mafagafogigante.dungeon.io;
 import static org.mafagafogigante.dungeon.io.JsonSearchUtil.convertJsonValuesToDungeonIds;
 import static org.mafagafogigante.dungeon.io.JsonSearchUtil.searchJsonValuesByPath;
 
+import org.mafagafogigante.dungeon.entity.creatures.AttackAlgorithmId;
+import org.mafagafogigante.dungeon.entity.creatures.Creature.Tag;
 import org.mafagafogigante.dungeon.game.Id;
 import org.mafagafogigante.dungeon.schema.JsonRule;
 import org.mafagafogigante.dungeon.schema.rules.JsonRuleFactory;
@@ -73,13 +75,24 @@ public class CreaturesJsonFileTest {
     creatureRules.put(INVENTORY_ITEM_LIMIT_FIELD, JsonRuleFactory.makeOptionalRule(integerRule));
     creatureRules.put(INVENTORY_WEIGHT_LIMIT_FIELD, optionalIntegerRule);
     creatureRules.put(INVENTORY_FIELD, JsonRuleFactory.makeOptionalRule(variableItemIdRule));
+    creatureRules.put(ID_FIELD, idRule);
+    creatureRules.put(TYPE_FIELD, JsonRuleFactory.makeStringRule());
+    creatureRules.put(NAME_FIELD, nameJsonRuleObject);
+    JsonRule tagEnumRule = JsonRuleFactory.makeEnumJsonRule(Tag.class);
+    JsonRule variableTagEnumRule = JsonRuleFactory.makeVariableArrayRule(tagEnumRule);
+    creatureRules.put(TAGS_FIELD, JsonRuleFactory.makeOptionalRule(variableTagEnumRule));
+    creatureRules.put(INVENTORY_ITEM_LIMIT_FIELD, JsonRuleFactory.makeOptionalRule(integerRule));
+    creatureRules.put(INVENTORY_WEIGHT_LIMIT_FIELD, optionalIntegerRule);
+    JsonRule variableIdRule = JsonRuleFactory.makeVariableArrayRule(idRule);
+    creatureRules.put(INVENTORY_FIELD, JsonRuleFactory.makeOptionalRule(variableIdRule));
     creatureRules.put(DROPS_FIELD, getDropsRule());
     creatureRules.put(LUMINOSITY_FIELD, JsonRuleFactory.makeOptionalRule(percentRule));
     creatureRules.put(VISIBILITY_FIELD, percentRule);
     creatureRules.put(WEIGHT_FIELD, JsonRuleFactory.makeBoundDoubleRule(Double.MIN_VALUE, Double.MAX_VALUE));
     creatureRules.put(HEALTH_FIELD, integerRule);
     creatureRules.put(ATTACK_FIELD, integerRule);
-    creatureRules.put(ATTACK_ALGORITHM_ID_FIELD, idRule);
+    JsonRule attackAlgorithmEnumRule = JsonRuleFactory.makeEnumJsonRule(AttackAlgorithmId.class);
+    creatureRules.put(ATTACK_ALGORITHM_ID_FIELD, attackAlgorithmEnumRule);
     creatureRules.put(WEAPON_FIELD, JsonRuleFactory.makeOptionalRule(idRule));
     return JsonRuleFactory.makeObjectRule(creatureRules);
   }

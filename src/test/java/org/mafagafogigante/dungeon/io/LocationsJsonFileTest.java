@@ -4,6 +4,7 @@ import static org.mafagafogigante.dungeon.io.JsonSearchUtil.convertJsonValuesToD
 import static org.mafagafogigante.dungeon.io.JsonSearchUtil.searchJsonValuesByPath;
 
 import org.mafagafogigante.dungeon.game.Id;
+import org.mafagafogigante.dungeon.game.LocationPreset;
 import org.mafagafogigante.dungeon.schema.JsonRule;
 import org.mafagafogigante.dungeon.schema.rules.JsonRuleFactory;
 
@@ -63,7 +64,8 @@ public class LocationsJsonFileTest {
     JsonRule blobBoundRule = JsonRuleFactory.makeBoundIntegerRule(BLOB_SIZE_MIN, BLOB_SIZE_MAX);
     JsonRule lightBoundRule = JsonRuleFactory.makeBoundDoubleRule(PERMITTIVITY_MIN, PERMITTIVITY_MAX);
     locationsRules.put(ID_FIELD, idRule);
-    locationsRules.put(TYPE_FIELD, idRule);
+    JsonRule locationTypeEnumRule = JsonRuleFactory.makeEnumJsonRule(LocationPreset.Type.class);
+    locationsRules.put(TYPE_FIELD, locationTypeEnumRule);
     locationsRules.put(NAME_FIELD, nameRule);
     locationsRules.put(COLOR_FIELD, colorRule);
     locationsRules.put(SYMBOL_FIELD, JsonRuleFactory.makeStringLengthRule(SYMBOL_STRING_LENGTH));
