@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [ $(whoami) != "mg" ]
+if [ "$(whoami)" != "mg" ]
     then
         echo "This should only be ran by Bernardo Sulzbach."
         echo "Even if you skip this check, it will not work."
@@ -11,8 +11,8 @@ if [ $# -ne 2 ]
     else
         old_tag=$(git describe --abbrev=0)
         sed -i "s/$old_tag/$1/g" pom.xml
-        git commit -a -m "$(printf "Release $1\n\n$2")"
-        git tag -a $1 -m "$2"
+        git commit -a -m "$(printf "Release %s\n\n%s" "$1" "$2")"
+        git tag -a "$1" -m "$2"
     # git push origin --set-upstream HEAD
     #   A handy way to push the current branch to the same name on the
     #   remote.
