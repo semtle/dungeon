@@ -42,10 +42,10 @@ public class ItemsJsonFileTest {
 
   @Test
   public void testIsFileHasValidStructure() {
-    final JsonRule integrityRuleObject = getIntegrityRuleObject();
-    final JsonRule nameRuleObject = getNameRuleObject();
-    final JsonRule itemsJsonRuleObject = getItemRuleObject(integrityRuleObject, nameRuleObject);
-    final JsonRule itemsFileJsonRuleObject = getItemsFileJsonRuleObject(itemsJsonRuleObject);
+    JsonRule integrityRuleObject = ExtendedJsonRuleFactory.makeIntegersRule(CURRENT_FIELD, MAXIMUM_FIELD);
+    JsonRule nameRuleObject = getNameRuleObject();
+    JsonRule itemsJsonRuleObject = getItemRuleObject(integrityRuleObject, nameRuleObject);
+    JsonRule itemsFileJsonRuleObject = getItemsFileJsonRuleObject(itemsJsonRuleObject);
     JsonObject itemsFileJsonObject = JsonObjectFactory.makeJsonObject(JsonFileName.ITEMS.getStringRepresentation());
     itemsFileJsonRuleObject.validate(itemsFileJsonObject);
   }
@@ -92,19 +92,11 @@ public class ItemsJsonFileTest {
 
   private JsonRule getNameRuleObject() {
     Map<String, JsonRule> nameRules = new HashMap<>();
-    final JsonRule stringRule = JsonRuleFactory.makeStringRule();
-    final JsonRule optionalStringRule = JsonRuleFactory.makeOptionalRule(stringRule);
+    JsonRule stringRule = JsonRuleFactory.makeStringRule();
+    JsonRule optionalStringRule = JsonRuleFactory.makeOptionalRule(stringRule);
     nameRules.put(SINGULAR_FIELD, stringRule);
     nameRules.put(PLURAL_FIELD, optionalStringRule);
     return JsonRuleFactory.makeObjectRule(nameRules);
-  }
-
-  private JsonRule getIntegrityRuleObject() {
-    Map<String, JsonRule> integrityRules = new HashMap<>();
-    final JsonRule integerRule = JsonRuleFactory.makeIntegerRule();
-    integrityRules.put(CURRENT_FIELD, integerRule);
-    integrityRules.put(MAXIMUM_FIELD, integerRule);
-    return JsonRuleFactory.makeObjectRule(integrityRules);
   }
 
 }

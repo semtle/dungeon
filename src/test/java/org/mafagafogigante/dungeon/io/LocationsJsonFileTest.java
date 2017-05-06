@@ -54,7 +54,7 @@ public class LocationsJsonFileTest {
   @Test
   public void testIsFileHasValidStructure() {
     JsonRule itemsRule = getItemsRule();
-    JsonRule populationRule = getPopulationRule();
+    JsonRule populationRule = ExtendedJsonRuleFactory.makeIntegersRule(MINIMUM_FIELD, MAXIMUM_FIELD);
     JsonRule spawnersRule = getSpawnersRule(populationRule);
     JsonRule blockedEntrancesRule = getBlockedEntrancesRule();
     JsonRule colorRule = getColorRuleGroup();
@@ -111,14 +111,6 @@ public class LocationsJsonFileTest {
     spawnersRules.put(POPULATION_FIELD, populationRule);
     JsonRule spawnerElementsRule = JsonRuleFactory.makeVariableArrayRule(JsonRuleFactory.makeObjectRule(spawnersRules));
     return JsonRuleFactory.makeOptionalRule(spawnerElementsRule);
-  }
-
-  private JsonRule getPopulationRule() {
-    Map<String, JsonRule> populationRules = new HashMap<>();
-    final JsonRule integerRule = JsonRuleFactory.makeIntegerRule();
-    populationRules.put(MINIMUM_FIELD, integerRule);
-    populationRules.put(MAXIMUM_FIELD, integerRule);
-    return JsonRuleFactory.makeObjectRule(populationRules);
   }
 
   private JsonRule getItemsRule() {
